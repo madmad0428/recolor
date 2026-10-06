@@ -1,0 +1,15 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 0.0,
+  "max_output_tokens": 300,
+  "thinking_level": "minimal",
+  "prompt": "이 이미지에는 글자가 적힌 버튼이 여러 개 있습니다.\n그중 '로그인' 이라고 적힌 버튼의 '중심'의 픽셀 좌표를 구하세요. 이미지 크기는 가로 880, 세로 600입니다.\n설명 없이 JSON만 출력: {\"x\": <정수>, \"y\": <정수>}",
+  "image_size": [
+    880,
+    600
+  ],
+  "manifest_sha1": "79bbc8713c27ae063e2e6eca1eedeadd122dbf49",
+  "coordinate_rule": "0-1000 normalized, x first (calib-confirmed for gemini-3.5-flash-lite)",
+  "first_run": "2026-10-05T02:34:25",
+  "python": "3.14.3"
+}
