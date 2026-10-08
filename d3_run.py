@@ -29,7 +29,7 @@ MODEL = "gemini-3.5-flash-lite"
 TEMPERATURE = 0.0
 MAX_TOKENS = 300
 THINKING = "minimal"
-API_KEY = "AQ.Ab8RN6LXE-_pJ_xlJSXqsWXcHaFPAxBOn5qBSfKeDqxZ79C2ZQ"
+API_KEY = ""
 SLEEP = 4                 # 호출 사이 대기(초)
 MAX_PER_RUN = None        # 무료 한도가 작으면 18 등으로 제한. None = 전부
 
