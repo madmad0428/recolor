@@ -5,7 +5,7 @@ from d3_analyze import wilson
 
 SCALES = [0.125]
 ALL_CONDS = "gray,20,65,110,155,200,245,290,335"
-SLEEP = 8                      # 호출 사이 대기(초). 분당 한도에 걸리면 늘리세요
+SLEEP = 4                      # 호출 사이 대기(초). 분당 한도에 걸리면 늘리세요
 OUT, IMG_OUT = "d4_pilot.csv", "d4_img"
 PROMPT = ("이 이미지에는 글자가 적힌 버튼이 여러 개 있습니다.\n"
           "그중 '로그인' 이라고 적힌 버튼의 중심 좌표를 구하세요.\n"

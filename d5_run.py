@@ -10,6 +10,8 @@ d5 실행기: d5_manifest.csv의 이미지를 (줄여서) Gemini에 보내고 �
   python d5_run.py --conds gray --scales 0.25,0.2,0.15,0.125 --max 60
                                                      # 사전 점검: gray만, 여러 배율 (난이도 구간 찾기)
   python d5_run.py --scales 0.15 --max 100           # 본 실행 (배율은 사전 점검 결과로 정함)
+  python d5_run.py --targets 로그인 --conds D65,D245 --scales 1.0,0.25
+                                                     # 목표 라벨 필터: 로그인 목표의 오도 조건만, 배율 2개
 
 규칙
   - 이미 한 (파일, 배율)은 건너뛴다. 끊겨도 같은 명령으로 이어서 한다.
@@ -83,14 +85,22 @@ def main():
     conds = arg("--conds", "all")
     scales = [float(x) for x in arg("--scales", "0.125").split(",")]
     mx = int(arg("--max")) if arg("--max") else None
-    rows = [r for r in load_manifest() if conds == "all" or r["cond"] in conds.split(",")]
+    targets = arg("--targets")
+    tset = set(targets.split(",")) if targets else None
+    rows = [r for r in load_manifest()
+            if (conds == "all" or r["cond"] in conds.split(","))
+            and (tset is None or r["target"] in tset)]
     done = set()
     if os.path.exists(OUT):
         done = {(r["file"], r["scale"]) for r in csv.DictReader(open(OUT, encoding="utf-8-sig"))}
     todo = [(r, s) for r in rows for s in scales if (r["file"], str(s)) not in done]
     if mx:
         todo = todo[:mx]
-    print(f"대상 {len(rows)}장 x {len(scales)}배율 / 이번에 호출할 것 {len(todo)}")
+    print(f"대상 {len(rows)}장 x {len(scales)}배율 / 이번에 호출할 것 {len(todo)}"
+          + (f"   (목표 라벨 필터: {','.join(sorted(tset))})" if tset else ""))
+    if not rows:
+        print("조건에 맞는 이미지가 없습니다. --targets / --conds 철자를 확인하세요 (예: 로그인, 홈, 설정 / D65, T245).")
+        return
     client = D.make_client() if todo else None
     consec = 0
     for n, (r, s) in enumerate(todo, 1):
