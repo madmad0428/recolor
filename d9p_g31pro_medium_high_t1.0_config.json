@@ -1,0 +1,18 @@
+{
+  "model": "gemini-3.1-pro-preview",
+  "media_resolution": "medium",
+  "thinking_level": "high",
+  "temperature": 1.0,
+  "max_output_tokens": 32768,
+  "prompt": "이 이미지에는 글자가 적힌 버튼이 여러 개 있습니다.\n그중 '로그인' 이라고 적힌 버튼의 중심 좌표를 구하세요.\n좌표는 이미지 왼쪽 위가 (0, 0), 오른쪽 아래가 (1000, 1000)인 정규화 좌표이며 x는 가로, y는 세로입니다.\n설명 없이 JSON만 출력: {\"x\": <정수>, \"y\": <정수>}",
+  "image_size": [
+    880,
+    600
+  ],
+  "manifest_sha1": "fc57c3633b88871a2ba0d9baba4e49e65e0e03c7",
+  "api_version": null,
+  "coordinate_rule": "0-1000 normalized, x first (지시문에 명시; d4_pilot.PROMPT)",
+  "first_run": "2026-10-12T17:16:40",
+  "python": "3.14.3",
+  "google_genai": "2.28.0"
+}

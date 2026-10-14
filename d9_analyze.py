@@ -88,6 +88,38 @@ def load(path=None):
 def hit(r): return int(r["hit"])
 
 
+def out_names():
+    """기본 결과(d9_results.csv)면 예전 이름 그대로, 다른 결과 파일이면 그 이름을 딴 실패 목록·갤러리 (덮어쓰기 방지)."""
+    f = arg("--file", RES)
+    if os.path.basename(f) == RES: return "d9_failures.csv", "d9_failures.png"
+    stem = os.path.splitext(f)[0]
+    return stem + "_failures.csv", stem + "_failures.png"
+
+
+def runner_cmd(sc, gray_ladder=False):
+    """사전 점검이 안내하는 '다음 명령'. 기본 결과(Flash-Lite)는 d5_run.py, 다른 결과 파일이면 그 파일의 설정으로 d9_pro_run.py."""
+    f = arg("--file", RES)
+    if os.path.basename(f) == RES:
+        return (f"py d5_run.py --set d9 --conds gray --layouts 0-29 --scales {sc}" if gray_ladder
+                else f"py d5_run.py --set d9 --scales {sc}")
+    c = os.path.splitext(f)[0] + "_config.json"
+    base = "python d9_pro_run.py"
+    if os.path.exists(c):
+        j = json.load(open(c, encoding="utf-8"))
+        base += f" --model {j.get('model')} --res {j.get('media_resolution')} --think {j.get('thinking_level')} --temp {j.get('temperature')}"
+    return base + (f" --conds gray --layouts 0-29 --scales {sc}" if gray_ladder else f" --scales {sc}")
+
+
+def model_name():
+    f = arg("--file", RES)
+    if os.path.basename(f) == RES: return "Gemini 3.5 Flash-Lite"
+    c = os.path.splitext(f)[0] + "_config.json"
+    if os.path.exists(c):
+        j = json.load(open(c, encoding="utf-8"))
+        return f"{j.get('model')}, 해상도 {j.get('media_resolution')}, 생각 {j.get('thinking_level')}, 온도 {j.get('temperature')}"
+    return f"{f}의 모델"
+
+
 # ----------------------------------------------------------------------------- 사전 점검
 def precheck(rows):
     print("=== 사전 점검: 회색 기준선 정확도 x 배율 (난이도 고르기) ===")
@@ -95,7 +127,7 @@ def precheck(rows):
     for r in rows:
         if r["cond"] == "gray": g[r["scale"]].append(r)
     if not g:
-        print("  회색 결과가 아직 없습니다. py d5_run.py --set d9 --conds gray --layouts 0-29 --scales 0.14,0.135,0.13,0.125")
+        print("  회색 결과가 아직 없습니다. " + runner_cmd("<배율들>", gray_ladder=True))
         return
     cand = []
     for sc in sorted(g, key=float, reverse=True):
@@ -108,8 +140,8 @@ def precheck(rows):
     if cand:
         cand.sort(); sc, p = cand[0][2], cand[0][3]
         print(f"  → 권고: x{sc} (회색 {p*100:.1f}%)")
-        print(f"  다음: py d5_run.py --set d9 --scales {sc}     (회색 60장은 이미 해서 건너뛰고 나머지를 돈다)")
-        print(f"        py d9_analyze.py {sc}")
+        print(f"  다음: {runner_cmd(sc)}     (회색 60장은 이미 해서 건너뛰고 나머지를 돈다)")
+        print(f"        py d9_analyze.py {sc}" + ("" if os.path.basename(arg('--file', RES)) == RES else f" --file {arg('--file', RES)}"))
     else:
         print("  → 조건을 만족하는 배율이 없음 (또는 회색 n<50). 멈추고 의논.")
 
@@ -333,11 +365,12 @@ def main(scale):
         keep = [b for b in U if b[0] not in flagged]
         st = layout_stats([(b[0], col_(b) - hit(U[b]['gray'])) for b in keep])
         print("  · 민감도 점검(배치 문제 의심 레이아웃 제외):", end=" "); show("색 vs 회색", st, 0.05)
-    with open("d9_failures.csv", "w", newline="", encoding="utf-8-sig") as f:
+    fail_csv, fail_png = out_names()
+    with open(fail_csv, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=list(fails[0].keys())) if fails else None
         if w: w.writeheader(); w.writerows(sorted(fails, key=lambda x: (x["cond"], int(x["layout"]), int(x["mirror"]))))
-    print("  · 오답 전체 목록: d9_failures.csv")
-    if fails: print("  · 오답 갤러리:", gallery(fails, float(scale)))
+    print(f"  · 오답 전체 목록: {fail_csv}")
+    if fails: print("  · 오답 갤러리:", gallery(fails, float(scale), fail_png))
 
     # --- 판정
     print("\n=== 판정 (미리 정한 규칙) ===")
@@ -348,7 +381,7 @@ def main(scale):
     else:
         print("  [1] 색 vs 회색 차이는 0과 구분되지 않음 (효과 없음과는 다름).")
     print("  [2] " + ("8색 사이에 차이가 있다 — 어느 색인지는 5번 표 참고(탐색)." if s2 else "8색 사이 차이가 있다는 증거 없음 (색당 120장의 검출력 한계 포함)."))
-    print("\n※ 단일 모델(Gemini 3.5 Flash-Lite)·합성 UI·글자 지시문(로그인)·한 배율·1회 실행. 같은 그림의 응답 흔들림은 이 결과에 섞여 있음(--compare로 재실행 시 별도 확인).")
+    print(f"\n※ 단일 모델({model_name()})·합성 UI·글자 지시문(로그인)·한 배율·1회 실행. 같은 그림의 응답 흔들림은 이 결과에 섞여 있음(--compare로 재실행 시 별도 확인).")
 
 
 # ----------------------------------------------------------------------------- 재실행 비교

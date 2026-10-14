@@ -1,0 +1,2 @@
+﻿file,layout,mirror,cond,kind,target,decoy,scale,picked,hit,err,pred_x,pred_y,status,raw,ts,model,res,think,temp,finish,in_tok,thought_tok,out_tok,latency_s,model_version
+d9_L05_gray_M.png,5,1,gray,gray,로그인,,0.13,로그인,1,1.0,638.0,304.8,ok,"```json {""x"": 725, ""y"": 508} ```",2026-10-12T18:14:23,gemini-3.1-pro-preview,ultra_high,low,1.0,STOP,2323,0,21,4.62,gemini-3.1-pro-preview

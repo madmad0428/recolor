@@ -1,0 +1,4 @@
+﻿file,layout,mirror,cond,kind,target,decoy,scale,picked,hit,err,pred_x,pred_y,status,raw,ts,model,res,think,temp,finish,in_tok,thought_tok,out_tok,latency_s,model_version
+d9_L28_gray_N.png,28,0,gray,gray,로그인,,0.13,로그인,1,0.9,148.7,353.4,ok,"```json {""x"": 169, ""y"": 589} ```",2026-10-12T18:13:18,gemini-3.1-pro-preview,medium,high,1.0,STOP,632,0,21,5.76,gemini-3.1-pro-preview
+d9_L16_gray_M.png,16,1,gray,gray,로그인,,0.13,로그인,1,1.1,547.4,57.0,ok,"```json {""x"": 622, ""y"": 95} ```",2026-10-12T18:14:28,gemini-3.1-pro-preview,medium,high,1.0,STOP,632,2224,20,19.85,gemini-3.1-pro-preview
+d9_L01_gray_M.png,1,1,gray,gray,로그인,,0.13,로그인,1,0.9,136.4,331.8,ok,"```json {""x"": 155, ""y"": 553} ```",2026-10-12T18:14:36,gemini-3.1-pro-preview,medium,high,1.0,STOP,632,6265,21,47.1,gemini-3.1-pro-preview

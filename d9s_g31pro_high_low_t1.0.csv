@@ -1,0 +1,9 @@
+﻿file,layout,mirror,cond,kind,target,decoy,scale,picked,hit,err,pred_x,pred_y,status,raw,ts,model,res,think,temp,finish,in_tok,thought_tok,out_tok,latency_s,model_version
+d9_L07_gray_N.png,7,0,gray,gray,로그인,,0.13,로그인,1,0.9,582.6,187.2,ok,"```json {""x"": 662, ""y"": 312} ```",2026-10-12T18:13:44,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,3.73,gemini-3.1-pro-preview
+d9_L01_gray_N.png,1,0,gray,gray,로그인,,0.13,로그인,1,0.6,743.6,330.6,ok,"```json {""x"": 845, ""y"": 551} ```",2026-10-12T18:13:45,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,4.28,gemini-3.1-pro-preview
+d9_L24_gray_M.png,24,1,gray,gray,로그인,,0.13,로그인,1,1.7,560.6,54.6,ok,"```json {""x"": 637, ""y"": 91} ```",2026-10-12T18:14:00,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,20,4.04,gemini-3.1-pro-preview
+d9_L07_gray_M.png,7,1,gray,gray,로그인,,0.13,로그인,1,0.5,297.4,187.8,ok,"```json {""x"": 338, ""y"": 313} ```",2026-10-12T18:14:13,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,3.87,gemini-3.1-pro-preview
+d9_L08_gray_M.png,8,1,gray,gray,로그인,,0.13,로그인,1,3.4,237.6,474.0,ok,"```json {""x"": 270, ""y"": 790} ```",2026-10-12T18:14:26,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,3.03,gemini-3.1-pro-preview
+d9_L19_gray_M.png,19,1,gray,gray,로그인,,0.13,로그인,1,1.7,172.5,495.6,ok,"```json {""x"": 196, ""y"": 826} ```",2026-10-12T18:14:39,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,2.87,gemini-3.1-pro-preview
+d9_L25_gray_M.png,25,1,gray,gray,로그인,,0.13,도움말,0,537.0,697.0,429.6,ok,"```json {""x"": 792, ""y"": 716} ```",2026-10-12T18:14:41,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,3.83,gemini-3.1-pro-preview
+d9_L26_gray_N.png,26,0,gray,gray,로그인,,0.13,로그인,1,3.8,247.3,256.2,ok,"```json {""x"": 281, ""y"": 427} ```",2026-10-12T18:14:45,gemini-3.1-pro-preview,high,low,1.0,STOP,1180,0,21,3.89,gemini-3.1-pro-preview
