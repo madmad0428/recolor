@@ -27,3 +27,4 @@ for r in rows:
 
 print(f"\n방해 버튼 안에 찍음 {inside_other}, 버튼 밖(빈 공간) {outside}")
 print(f"가장 가까운 방해 버튼까지 거리 중앙값 {st.median(nearest_d):.1f}px")
+]
